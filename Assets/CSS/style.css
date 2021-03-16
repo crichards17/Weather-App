@@ -7,6 +7,10 @@ header {
     padding: 5px;
 }
 
+#sidebar {
+    padding-bottom: 5px;
+}
+
 .search-box {
     width: 65%;
 }

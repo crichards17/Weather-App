@@ -104,12 +104,12 @@ function writeHistory() {
 
 function loadHistory() {
     historyList = JSON.parse(localStorage.getItem('searchHistory'));
-    localStorage.setItem('searchHistory',JSON.stringify(historyList));
     writeHistory();
 }
 
 function clearHistory() {
     historyList = [];
+    localStorage.setItem('searchHistory',JSON.stringify(historyList));
     writeHistory();
 }
 
@@ -127,6 +127,3 @@ $(document).on('click','.history',function(event){
 clearButtonEl.on('click',clearHistory);
 
 loadHistory();
-
-// TODO: 
-// Update CSS 
