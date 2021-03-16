@@ -9,7 +9,7 @@ const currentWeatherEl = $('#current-weather');
 
 // API URLs:
 const weatherApi = 'https://api.openweathermap.org/data/2.5/onecall?appid=c0d1389376180ead6ac004e04a7cce56&exclude=minutely,hourly,alerts&units=imperial';
-const positionStackApi = 'http://api.positionstack.com/v1/forward?access_key=948c242b419708ce2ee096640a68ff69&query=';
+const positionStackApi = 'https://api.positionstack.com/v1/forward?access_key=948c242b419708ce2ee096640a68ff69&query=';
 
 // Global variables:
 var historyList=[];
