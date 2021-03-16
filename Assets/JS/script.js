@@ -53,7 +53,7 @@ function writeWeather(data,city) {
     currentWeatherEl.append($(`<h4>Humidity: ${data.current.humidity}%</h4>`));
     currentWeatherEl.append($(`<h4>Wind Speed: ${data.current.wind_speed} MPH</h4>`));
     let indexText = $('<h4>UV Index: </h4>');
-    let indexBox = $(`<span id="index-box" style="display:inline-block;width:40px;text-align:center;">${data.current.uvi}</span>`);
+    let indexBox = $(`<span id="index-box" style="display:inline-block;padding:0 5px;text-align:center;">${data.current.uvi}</span>`);
     if (data.current.uvi <= 2) {
         indexBox.css('background-color', 'green');
     } else if (data.current.uvi <= 5) {
@@ -75,7 +75,7 @@ function writeWeather(data,city) {
         let forecastIcon = `http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`
         dayCard.append($(`<p><img src=${forecastIcon}></img></p>`));
         dayCard.append($(`<p>Temp: ${forecast.temp.day} °F<p>`));
-        dayCard.append($(`<p>Humidty: ${forecast.humidity}%<p>`));
+        dayCard.append($(`<p>Humidity: ${forecast.humidity}%<p>`));
         forecastContainer.append(dayCard);
     }
     currentWeatherEl.append(forecastContainer);
