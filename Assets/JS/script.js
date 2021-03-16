@@ -1,5 +1,6 @@
 // OpenWeather API key: c0d1389376180ead6ac004e04a7cce56
 // PositionStack API key: 948c242b419708ce2ee096640a68ff69
+// Mapquest API Key: CzBGONNuq1CKYZQ4XvIHd276Y2N5GaQG
 
 // DOM elements:
 const searchBoxEl = $('#search-box');
@@ -9,7 +10,7 @@ const currentWeatherEl = $('#current-weather');
 
 // API URLs:
 const weatherApi = 'https://api.openweathermap.org/data/2.5/onecall?appid=c0d1389376180ead6ac004e04a7cce56&exclude=minutely,hourly,alerts&units=imperial';
-const positionStackApi = 'https://api.positionstack.com/v1/forward?access_key=948c242b419708ce2ee096640a68ff69&query=';
+const positionStackApi = 'https://open.mapquestapi.com/geocoding/v1/address?key=CzBGONNuq1CKYZQ4XvIHd276Y2N5GaQG&location=';
 
 // Global variables:
 var historyList=[];
@@ -27,7 +28,7 @@ function fetchCoords(city) {
     fetch(coordsUrl)
     .then(response => response.json())
     .then(data => {
-    fetchWeather(data.data[0].latitude, data.data[0].longitude, city);
+    fetchWeather(data.results[0].locations[0].latLng.lat, data.results[0].locations[0].latLng.lng, city);
     });
 }
 
@@ -95,6 +96,11 @@ function writeHistory() {
     }
 }
 
+function loadHistory() {
+    historyList = JSON.parse(localStorage.getItem('searchHistory'));
+    writeHistory();
+}
+
 // Event Listeners:
 searchButtonEl.on('click', getCity);
 searchBoxEl.on('keyup', function(event) {
@@ -107,6 +113,7 @@ $(document).on('click','.history',function(event){
     fetchCoords(city);
 })
 
+loadHistory();
 
 // TODO: 
 // Fix date parsing
