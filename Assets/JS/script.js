@@ -7,6 +7,7 @@ const searchBoxEl = $('#search-box');
 const searchButtonEl = $('#search-button');
 const searchHistoryEl = $('#search-history');
 const currentWeatherEl = $('#current-weather');
+const clearButtonEl = $('#clear-search');
 
 // API URLs:
 const weatherApi = 'https://api.openweathermap.org/data/2.5/onecall?appid=c0d1389376180ead6ac004e04a7cce56&exclude=minutely,hourly,alerts&units=imperial';
@@ -44,7 +45,7 @@ function fetchWeather(lat, lon, city) {
 
 function writeWeather(data,city) {
     currentWeatherEl.html('');
-    let date = moment(data.current.dt).format('(MM/DD/YYYY)');
+    let date = moment.unix(data.current.dt).format('(MM/DD/YYYY)');
     let icon = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}.png`
     currentWeatherEl.append($('<h2>Current Weather:</h2>'));
     currentWeatherEl.append($(`<h3>${city} ${date} <img src='${icon}'></img></h2>`));
@@ -69,7 +70,7 @@ function writeWeather(data,city) {
     for (let i = 0; i < 5; i++) {
         let dayCard = $('<div class="card col-2 bg-info text-light"></div>');
         let forecast = data.daily[i];
-        let forecastDate = moment(forecast.dt).format('(MM/DD/YYYY)');
+        let forecastDate = moment.unix(forecast.dt).format('(MM/DD/YYYY)');
         dayCard.append($(`<h4>${forecastDate}</h4>`));
         let forecastIcon = `http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`
         dayCard.append($(`<p><img src=${forecastIcon}></img></p>`));
@@ -94,10 +95,21 @@ function writeHistory() {
         let newEntry = $(`<div class="card history col-12">${historyList[i]}</div>`);
         searchHistoryEl.append(newEntry);
     }
+    if (historyList.length > 0) {
+        clearButtonEl.removeClass("d-none");
+    } else {
+        clearButtonEl.addClass("d-none");
+    }
 }
 
 function loadHistory() {
     historyList = JSON.parse(localStorage.getItem('searchHistory'));
+    localStorage.setItem('searchHistory',JSON.stringify(historyList));
+    writeHistory();
+}
+
+function clearHistory() {
+    historyList = [];
     writeHistory();
 }
 
@@ -107,15 +119,15 @@ searchBoxEl.on('keyup', function(event) {
     if (event.keyCode === 13) {
         getCity();
     }
-})
+});
 $(document).on('click','.history',function(event){
     let city = $(event.target).text();
     fetchCoords(city);
-})
+});
+clearButtonEl.on('click',clearHistory);
 
 loadHistory();
 
 // TODO: 
 // Fix date parsing
-// Load localstorage search history on load
 // Update CSS 
