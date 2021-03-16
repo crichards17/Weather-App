@@ -1,0 +1,58 @@
+:root {
+    --info: #5bc0de;
+    --light: #f7f7f7;
+}
+
+header {
+    padding: 5px;
+}
+
+.search-box {
+    width: 65%;
+}
+
+#search-button {
+    width: 30%;
+}
+
+#search-container {
+    display: flex;
+    justify-content:space-between;
+}
+
+#search-history {
+    padding: 0;
+}
+
+.history {
+    margin: 5px 0;
+    padding: 2px 5px;
+}
+
+.history:hover {
+    cursor:pointer;
+}
+
+#clear-search {
+    width: 100%;
+}
+
+h4 {
+    font-size: 135%;
+}
+
+button {
+    background-color: var(--info);
+    color: white;
+    font-size: 110%;
+    font-weight:500;
+}
+
+#forecast-container {
+    padding: 10px 0;
+    background-color: var(--light);
+}
+
+.forecast-card h4 {
+    margin-top: 5px;
+}

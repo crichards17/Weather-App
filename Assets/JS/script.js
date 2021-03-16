@@ -48,12 +48,12 @@ function writeWeather(data,city) {
     let date = moment.unix(data.current.dt).format('(MM/DD/YYYY)');
     let icon = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}.png`
     currentWeatherEl.append($('<h2>Current Weather:</h2>'));
-    currentWeatherEl.append($(`<h3>${city} ${date} <img src='${icon}'></img></h2>`));
+    currentWeatherEl.append($(`<h3>${city} ${date} <span style="display:inline-block;width:50px;height:50px;border-radius:50%;background-color:var(--info)"><img src='${icon}'></img></span></h2>`));
     currentWeatherEl.append($(`<h4>Temperature: ${data.current.temp} °F</h4>`));
     currentWeatherEl.append($(`<h4>Humidity: ${data.current.humidity}%</h4>`));
     currentWeatherEl.append($(`<h4>Wind Speed: ${data.current.wind_speed} MPH</h4>`));
     let indexText = $('<h4>UV Index: </h4>');
-    let indexBox = $(`<span>${data.current.uvi}</span>`);
+    let indexBox = $(`<span id="index-box" style="display:inline-block;width:40px;text-align:center;">${data.current.uvi}</span>`);
     if (data.current.uvi <= 2) {
         indexBox.css('background-color', 'green');
     } else if (data.current.uvi <= 5) {
@@ -66,9 +66,9 @@ function writeWeather(data,city) {
     indexText.append(indexBox);
     currentWeatherEl.append(indexText);
     currentWeatherEl.append($('<h2>5-Day forecast:</h2>'));
-    let forecastContainer = $('<div class="row justify-content-around"></div>');
+    let forecastContainer = $('<div id="forecast-container" class="row justify-content-around"></div>');
     for (let i = 0; i < 5; i++) {
-        let dayCard = $('<div class="card col-2 bg-info text-light"></div>');
+        let dayCard = $('<div class="card forecast-card col-2 bg-info text-light"></div>');
         let forecast = data.daily[i];
         let forecastDate = moment.unix(forecast.dt).format('(MM/DD/YYYY)');
         dayCard.append($(`<h4>${forecastDate}</h4>`));
@@ -92,7 +92,7 @@ function storeHistory(city) {
 function writeHistory() {
     searchHistoryEl.html('');
     for (let i = 0; i < historyList.length; i++) {
-        let newEntry = $(`<div class="card history col-12">${historyList[i]}</div>`);
+        let newEntry = $(`<div class="card history">${historyList[i]}</div>`);
         searchHistoryEl.append(newEntry);
     }
     if (historyList.length > 0) {
@@ -129,5 +129,4 @@ clearButtonEl.on('click',clearHistory);
 loadHistory();
 
 // TODO: 
-// Fix date parsing
 // Update CSS 
