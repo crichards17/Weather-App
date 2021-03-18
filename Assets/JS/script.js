@@ -46,7 +46,7 @@ function fetchWeather(lat, lon, city) {
 function writeWeather(data,city) {
     currentWeatherEl.html('');
     let date = moment.unix(data.current.dt).format('(MM/DD/YYYY)');
-    let icon = `http://openweathermap.org/img/wn/${data.current.weather[0].icon}.png`
+    let icon = `https://openweathermap.org/img/wn/${data.current.weather[0].icon}.png`
     currentWeatherEl.append($('<h2>Current Weather:</h2>'));
     currentWeatherEl.append($(`<h3>${city} ${date} <span style="display:inline-block;width:50px;height:50px;border-radius:50%;background-color:var(--info)"><img src='${icon}'></img></span></h2>`));
     currentWeatherEl.append($(`<h4>Temperature: ${data.current.temp} °F</h4>`));
@@ -72,7 +72,7 @@ function writeWeather(data,city) {
         let forecast = data.daily[i];
         let forecastDate = moment.unix(forecast.dt).format('(MM/DD/YYYY)');
         dayCard.append($(`<h4>${forecastDate}</h4>`));
-        let forecastIcon = `http://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`
+        let forecastIcon = `https://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`
         dayCard.append($(`<p><img src=${forecastIcon}></img></p>`));
         dayCard.append($(`<p>Temp: ${forecast.temp.day} °F<p>`));
         dayCard.append($(`<p>Humidity: ${forecast.humidity}%<p>`));
@@ -103,7 +103,10 @@ function writeHistory() {
 }
 
 function loadHistory() {
-    historyList = JSON.parse(localStorage.getItem('searchHistory'));
+    loadedHistoryList = JSON.parse(localStorage.getItem('searchHistory'));
+    if (loadedHistoryList !== undefined && loadedHistoryList !== null) {
+        historyList = loadedHistoryList;
+    }
     writeHistory();
 }
 
